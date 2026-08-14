@@ -23,7 +23,19 @@ const container = {
 
 export default function ModernizationSection() {
   return (
-    <section className="bg-[#fcfaf7]">
+    <section className="relative bg-[#fcfaf7] overflow-hidden">
+      {/* Decorative background elements for depth and relief */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Top-left gradient orb */}
+        <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-gradient-to-br from-[#f5f1ed] to-[#f9f7f5] opacity-60 blur-3xl" />
+        
+        {/* Bottom-right gradient orb */}
+        <div className="absolute -bottom-32 -right-32 w-96 h-96 rounded-full bg-gradient-to-tl from-[#e8e3dd] to-[#f5f1ed] opacity-50 blur-3xl" />
+        
+        {/* Subtle diagonal gradient for relief */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#fdfbf9]/40 via-transparent to-[#f0ebe5]/30" />
+      </div>
+
       <div className="relative mx-auto max-w-[1280px] grid grid-cols-1 lg:grid-cols-2 items-center gap-12 px-12 py-16 xl:gap-16 xl:py-24">
         {/* Left Column - Text Content */}
         <motion.div
@@ -103,7 +115,10 @@ export default function ModernizationSection() {
           className="order-1 lg:order-2 flex justify-center lg:justify-end"
         >
           <div className="relative w-full max-w-[500px]">
-            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[20px] shadow-[0_20px_60px_rgba(42,42,42,0.15)] bg-neutral-200">
+            {/* Decorative background elements */}
+            <div className="absolute -inset-8 bg-gradient-to-br from-[#ede9e4]/40 to-[#ddd7d0]/20 rounded-[32px] blur-xl opacity-60 pointer-events-none" />
+            
+            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[20px] shadow-[0_20px_60px_rgba(42,42,42,0.15)] bg-neutral-200 border border-[#e8e3dd]">
               {/* Placeholder for kitchen modernization image */}
               <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#f5f3f0] to-[#ede9e4]">
                 <div className="text-center">
@@ -132,6 +147,7 @@ export default function ModernizationSection() {
 
             {/* Decorative accent */}
             <div className="absolute -bottom-4 -right-4 h-24 w-24 rounded-full bg-[#8f9a68]/10 blur-2xl" />
+            <div className="absolute -top-6 -left-6 h-20 w-20 rounded-full bg-[#c4b896]/8 blur-2xl" />
           </div>
         </motion.div>
       </div>
