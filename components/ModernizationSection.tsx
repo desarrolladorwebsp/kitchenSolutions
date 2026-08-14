@@ -23,7 +23,7 @@ const container = {
 
 export default function ModernizationSection() {
   return (
-    <section className="relative bg-[#fcfaf7] overflow-hidden">
+    <section className="relative bg-[#fcfaf7] overflow-hidden border-b border-[#e8e3dd]">
       {/* Decorative background elements for depth and relief */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Top-left gradient orb */}
