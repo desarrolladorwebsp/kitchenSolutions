@@ -153,7 +153,7 @@ export default function HeroSection() {
             <button
               type="button"
               onClick={scrollToForm}
-              className="group inline-flex items-center gap-3 rounded-full bg-[#6b705c] px-8 py-4 text-[16px] font-medium text-white transition-all duration-200 hover:bg-[#5f6452] hover:scale-[1.02] active:scale-[0.98]"
+              className="group inline-flex items-center gap-3 rounded-full bg-[#22c55e] px-8 py-4 text-[16px] font-medium text-white transition-all duration-200 hover:bg-[#16a34a] hover:scale-[1.02] active:scale-[0.98]"
             >
               <Wand2 className="h-[18px] w-[18px]" />
               Cotizar mi cocina ahora
