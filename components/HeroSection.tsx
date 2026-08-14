@@ -252,7 +252,7 @@ export default function HeroSection() {
         </motion.div>
         </div>
 
-        <div className="relative z-10 bg-[#fcfaf7]">
+        <div className="relative z-10 border-b border-[#e8e3dd] bg-[#fcfaf7]">
           <div className="mx-auto grid max-w-[1280px] grid-cols-3 divide-x divide-neutral-300/80 px-12 py-8">
             {STATS.map(({ icon: Icon, accent, rest, iconWrap }) => (
               <div key={accent} className="flex items-center gap-5 px-8 first:pl-0 last:pr-0">
