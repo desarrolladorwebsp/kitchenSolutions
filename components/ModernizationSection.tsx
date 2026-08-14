@@ -104,6 +104,21 @@ export default function ModernizationSection() {
               </div>
             </div>
           </motion.div>
+
+          <motion.div variants={fadeUp} className="mt-8">
+            <button
+              type="button"
+              onClick={() =>
+                document.getElementById("formulario-proyecto")?.scrollIntoView({
+                  behavior: "smooth",
+                })
+              }
+              className="group inline-flex items-center gap-3 rounded-full bg-[#6b705c] px-6 py-3.5 text-[15px] font-medium text-white shadow-[0_12px_30px_rgba(107,112,92,0.28)] transition-all duration-200 hover:bg-[#5f6452] hover:scale-[1.02] active:scale-[0.98]"
+            >
+              <Sparkles className="h-[18px] w-[18px]" />
+              Agenda visita a domicilio
+            </button>
+          </motion.div>
         </motion.div>
 
         {/* Right Column - Image Container */}
