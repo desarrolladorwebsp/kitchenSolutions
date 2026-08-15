@@ -1,12 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
   Box,
-  Play,
   ShieldCheck,
   Sparkles,
   Star,
@@ -19,12 +17,7 @@ const KITCHEN_BG =
   "https://images.unsplash.com/photo-1556912173-46c336c7fd55?auto=format&fit=crop&w=1800&q=80";
 const FOLIAGE_BG =
   "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1400&q=80";
-const VIDEO_THUMB =
-  "https://images.unsplash.com/photo-1617228069096-4638a7ffc906?auto=format&fit=crop&w=1400&q=80";
-const AVATAR =
-  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80";
-const YOUTUBE_ID = "5dSyy7ou7iA";
-const VIDEO_EMBED = `https://www.youtube-nocookie.com/embed/${YOUTUBE_ID}?autoplay=1&rel=0&modestbranding=1`;
+const VIDEO_SRC = "/videos/hero-section.mp4";
 
 const FEATURES = [
   { icon: Box, label: "Renderizado 3D real" },
@@ -70,17 +63,7 @@ const fadeUp = {
   },
 };
 
-function YouTubeIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden>
-      <path d="M23.5 6.2a3.02 3.02 0 0 0-2.13-2.14C19.5 3.7 12 3.7 12 3.7s-7.5 0-9.37.36A3.02 3.02 0 0 0 .5 6.2 31.6 31.6 0 0 0 .1 12a31.6 31.6 0 0 0 .4 5.8 3.02 3.02 0 0 0 2.13 2.14c1.87.36 9.37.36 9.37.36s7.5 0 9.37-.36a3.02 3.02 0 0 0 2.13-2.14A31.6 31.6 0 0 0 23.9 12a31.6 31.6 0 0 0-.4-5.8ZM9.75 15.52V8.48L15.84 12l-6.09 3.52Z" />
-    </svg>
-  );
-}
-
 export default function HeroSection() {
-  const [isPlaying, setIsPlaying] = useState(false);
-
   const scrollToForm = () => {
     document.getElementById("formulario-proyecto")?.scrollIntoView({
       behavior: "smooth",
@@ -90,7 +73,18 @@ export default function HeroSection() {
   return (
     <section className="bg-[#121212]">
       <div className="relative isolate flex min-h-screen flex-col overflow-hidden">
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-[40%]">
+        <div className="pointer-events-none absolute inset-0 lg:hidden">
+          <Image
+            src={KITCHEN_BG}
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+        </div>
+
+        <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[40%] lg:block">
           <Image
             src={KITCHEN_BG}
             alt=""
@@ -102,7 +96,7 @@ export default function HeroSection() {
           <div className="absolute inset-0 bg-gradient-to-r from-[#121212] via-[#121212]/45 to-black/10" />
         </div>
 
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-[28%] overflow-hidden">
+        <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-[28%] overflow-hidden lg:block">
           <Image
             src={FOLIAGE_BG}
             alt=""
@@ -113,14 +107,14 @@ export default function HeroSection() {
           <div className="absolute inset-0 bg-gradient-to-r from-emerald-900/25 via-[#121212]/30 to-[#121212]" />
         </div>
 
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-[58%] bg-gradient-to-r from-[#121212]/25 via-[#121212]/10 to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-[58%] bg-gradient-to-r from-[#121212]/25 via-[#121212]/10 to-transparent lg:block" />
 
-        <div className="relative z-10 mx-auto grid w-full flex-1 max-w-[1280px] grid-cols-12 items-center gap-12 px-12 py-12 xl:gap-16">
+        <div className="relative z-10 mx-auto grid w-full max-w-[1280px] flex-1 grid-cols-1 items-center gap-12 px-6 py-10 sm:px-8 sm:py-12 lg:grid-cols-12 lg:px-12 xl:gap-16">
         <motion.div
           variants={container}
           initial="hidden"
           animate="show"
-          className="col-span-6 max-w-[560px]"
+          className="-mx-6 -mt-10 max-w-none bg-black/85 px-6 pb-10 pt-10 sm:-mx-8 sm:-mt-12 sm:px-8 sm:pt-12 lg:mx-0 lg:my-0 lg:max-w-[560px] lg:bg-transparent lg:px-0 lg:py-0 lg:col-span-6"
         >
           <motion.div
             variants={fadeUp}
@@ -132,12 +126,12 @@ export default function HeroSection() {
 
           <motion.h1
             variants={fadeUp}
-            className="font-serif mt-7 text-[52px] font-medium leading-[1.18] tracking-tight text-white"
+            className="font-serif mt-7 text-[40px] font-medium leading-[1.18] text-white sm:text-[42px] lg:text-[52px]"
           >
             Tu cocina soñada,{" "}
             <span className="text-[#8f9a68]">diseñada en 3D</span> y fabricada
             sin retrasos{" "}
-            <span className="text-[#c4a574]">ni costos ocultos</span>
+          
           </motion.h1>
 
           <motion.p
@@ -153,10 +147,11 @@ export default function HeroSection() {
             <button
               type="button"
               onClick={scrollToForm}
-              className="group inline-flex items-center gap-3 rounded-full bg-[#22c55e] px-8 py-4 text-[16px] font-medium text-white transition-all duration-200 hover:bg-[#16a34a] hover:scale-[1.02] active:scale-[0.98]"
+              className="group inline-flex items-center gap-3 rounded-full bg-[#65a30d] px-8 py-4 text-[16px] font-medium text-white shadow-[0_10px_30px_rgba(101,163,13,0.32)] transition-all duration-200 hover:scale-[1.02] hover:bg-[#4d7c0f] active:scale-[0.98]"
             >
               <Wand2 className="h-[18px] w-[18px]" />
-              Cotizar mi cocina ahora
+             Agenda visita a domicilio
+
               <ArrowRight className="h-[18px] w-[18px] transition-transform duration-200 group-hover:translate-x-0.5" />
             </button>
           </motion.div>
@@ -178,84 +173,29 @@ export default function HeroSection() {
           initial={{ opacity: 0, x: 40 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
-          className="col-span-6 flex justify-end"
+          className="-mx-6 flex justify-center bg-black/50 px-6 py-8 sm:-mx-8 sm:px-8 lg:mx-0 lg:col-span-6 lg:justify-end lg:bg-transparent lg:p-0"
         >
-          <div className="relative w-full max-w-[430px] overflow-hidden rounded-[28px] shadow-[0_40px_90px_rgba(0,0,0,0.55)]">
-            <div className="relative aspect-[4/5] w-full">
-              {isPlaying ? (
-                <iframe
-                  src={VIDEO_EMBED}
-                  title="Recorrido por mi cocina moderna"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                  className="absolute inset-0 h-full w-full"
-                />
-              ) : (
-                <>
-                  <Image
-                    src={VIDEO_THUMB}
-                    alt="Proyecto real de cocina a medida"
-                    fill
-                    priority
-                    sizes="430px"
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0 bg-black/15" />
-
-                  <button
-                    type="button"
-                    onClick={() => setIsPlaying(true)}
-                    aria-label="Reproducir video del proyecto"
-                    className="absolute inset-0 flex items-center justify-center"
-                  >
-                    <motion.span
-                      className="flex h-[84px] w-[84px] items-center justify-center rounded-full bg-[#6b705c]/85 text-white shadow-[0_12px_40px_rgba(0,0,0,0.35)] backdrop-blur-[2px]"
-                      animate={{ scale: [1, 1.06, 1] }}
-                      transition={{ duration: 2.1, repeat: Infinity, ease: "easeInOut" }}
-                      whileHover={{ scale: 1.08 }}
-                      whileTap={{ scale: 0.96 }}
-                    >
-                      <Play className="ml-1 h-8 w-8 fill-white" />
-                    </motion.span>
-                  </button>
-
-                  <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-3 bg-black/45 px-4 py-3.5 backdrop-blur-md">
-                    <div className="flex min-w-0 items-center gap-3">
-                      <Image
-                        src={AVATAR}
-                        alt=""
-                        width={36}
-                        height={36}
-                        className="h-9 w-9 rounded-full object-cover"
-                      />
-                      <div className="min-w-0">
-                        <p className="truncate text-[13px] font-semibold text-white">
-                          Recorrido por mi cocina moderna
-                        </p>
-                        <p className="text-[12px] text-white/70">Proyecto real</p>
-                      </div>
-                    </div>
-                    <a
-                      href={`https://www.youtube.com/watch?v=${YOUTUBE_ID}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex shrink-0 items-center gap-1.5 text-[12px] font-medium text-white/90 transition hover:text-white"
-                    >
-                      Ver en YouTube
-                      <YouTubeIcon className="h-4 w-4" />
-                    </a>
-                  </div>
-                </>
-              )}
+          <div className="relative w-full max-w-[430px] overflow-hidden rounded-2xl shadow-[0_40px_90px_rgba(0,0,0,0.55)] lg:max-w-[560px]">
+            <div className="relative aspect-[4/5] w-full lg:aspect-[16/10]">
+              <video
+                src={VIDEO_SRC}
+                aria-label="Recorrido por mi cocina moderna"
+                autoPlay
+                muted
+                loop
+                controls
+                playsInline
+                className="absolute inset-0 h-full w-full object-cover"
+              />
             </div>
           </div>
         </motion.div>
         </div>
 
-        <div className="relative z-10 border-b border-[#e8e3dd] bg-[#fcfaf7]">
-          <div className="mx-auto grid max-w-[1280px] grid-cols-3 divide-x divide-neutral-300/80 px-12 py-8">
+        <div className="relative z-10 border-b border-[#e8e3dd] bg-[#fcfaf7] py-8">
+          <div className="mx-auto grid max-w-[1280px] grid-cols-1 divide-y divide-neutral-300/80 px-6 sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:px-8 lg:px-12">
             {STATS.map(({ icon: Icon, accent, rest, iconWrap }) => (
-              <div key={accent} className="flex items-center gap-5 px-8 first:pl-0 last:pr-0">
+              <div key={accent} className="flex items-center gap-5 py-6 sm:px-8 sm:py-0 sm:first:pl-0 sm:last:pr-0">
                 <span
                   className={`flex h-16 w-16 shrink-0 items-center justify-center rounded-full shadow-sm ${iconWrap}`}
                 >

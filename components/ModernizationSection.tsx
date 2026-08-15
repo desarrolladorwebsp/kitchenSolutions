@@ -2,7 +2,9 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
+
+const MODERNIZATION_IMAGE = "/images/8067d353-09b9-4027-b9cb-61408a3c9fce.jpeg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 22 },
@@ -23,27 +25,14 @@ const container = {
 
 export default function ModernizationSection() {
   return (
-    <section className="relative bg-[#fcfaf7] overflow-hidden border-b border-[#e8e3dd]">
-      {/* Decorative background elements for depth and relief */}
-      <div className="absolute inset-0 pointer-events-none">
-        {/* Top-left gradient orb */}
-        <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-gradient-to-br from-[#f5f1ed] to-[#f9f7f5] opacity-60 blur-3xl" />
-        
-        {/* Bottom-right gradient orb */}
-        <div className="absolute -bottom-32 -right-32 w-96 h-96 rounded-full bg-gradient-to-tl from-[#e8e3dd] to-[#f5f1ed] opacity-50 blur-3xl" />
-        
-        {/* Subtle diagonal gradient for relief */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#fdfbf9]/40 via-transparent to-[#f0ebe5]/30" />
-      </div>
-
-      <div className="relative mx-auto max-w-[1280px] grid grid-cols-1 lg:grid-cols-2 items-center gap-12 px-12 py-16 xl:gap-16 xl:py-24">
-        {/* Left Column - Text Content */}
+    <section className="border-b border-[#e8e3dd] bg-[#fcfaf7]">
+      <div className="mx-auto grid w-full max-w-[1280px] grid-cols-1 items-center gap-12 px-6 py-16 sm:px-8 sm:py-20 lg:grid-cols-2 lg:gap-16 lg:px-12 lg:py-24">
         <motion.div
           variants={container}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-100px" }}
-          className="order-2 lg:order-1"
+          className="order-2 max-w-[560px] lg:order-1"
         >
           <motion.div
             variants={fadeUp}
@@ -55,7 +44,7 @@ export default function ModernizationSection() {
 
           <motion.h2
             variants={fadeUp}
-            className="font-serif mt-8 text-[42px] lg:text-[48px] font-medium leading-[1.2] tracking-tight text-[#2a2a2a]"
+            className="font-serif mt-6 text-[36px] font-medium leading-[1.2] text-[#2a2a2a] sm:text-[42px] lg:text-[48px]"
           >
             Transformamos tu cocina en un{" "}
             <span className="text-[#8f9a68]">espacio moderno</span>
@@ -113,15 +102,15 @@ export default function ModernizationSection() {
                   behavior: "smooth",
                 })
               }
-              className="group inline-flex items-center gap-3 rounded-full bg-[#22c55e] px-6 py-3.5 text-[15px] font-medium text-white shadow-[0_12px_30px_rgba(34,197,94,0.28)] transition-all duration-200 hover:bg-[#16a34a] hover:scale-[1.02] active:scale-[0.98]"
+              className="group inline-flex items-center gap-3 rounded-full bg-[#65a30d] px-6 py-3.5 text-[15px] font-medium text-white shadow-[0_10px_30px_rgba(101,163,13,0.32)] transition-all duration-200 hover:scale-[1.02] hover:bg-[#4d7c0f] active:scale-[0.98]"
             >
               <Sparkles className="h-[18px] w-[18px]" />
               Agenda visita a domicilio
+              <ArrowRight className="h-[18px] w-[18px] transition-transform duration-200 group-hover:translate-x-0.5" />
             </button>
           </motion.div>
         </motion.div>
 
-        {/* Right Column - Image Container */}
         <motion.div
           initial={{ opacity: 0, x: 40 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -129,40 +118,14 @@ export default function ModernizationSection() {
           transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
           className="order-1 lg:order-2 flex justify-center lg:justify-end"
         >
-          <div className="relative w-full max-w-[500px]">
-            {/* Decorative background elements */}
-            <div className="absolute -inset-8 bg-gradient-to-br from-[#ede9e4]/40 to-[#ddd7d0]/20 rounded-[32px] blur-xl opacity-60 pointer-events-none" />
-            
-            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[20px] shadow-[0_20px_60px_rgba(42,42,42,0.15)] bg-neutral-200 border border-[#e8e3dd]">
-              {/* Placeholder for kitchen modernization image */}
-              <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#f5f3f0] to-[#ede9e4]">
-                <div className="text-center">
-                  <div className="text-neutral-400 text-6xl mb-3">🖼️</div>
-                  <p className="text-neutral-500 text-sm font-medium">
-                    Espacio para imagen de cocina
-                  </p>
-                  <p className="text-neutral-400 text-xs mt-1">
-                    (Se reemplazará fácilmente)
-                  </p>
-                </div>
-              </div>
-
-              {/* 
-                Replace the placeholder above with your image:
-                <Image
-                  src="/path-to-your-kitchen-image"
-                  alt="Cocina moderna remodelada"
-                  fill
-                  priority
-                  sizes="500px"
-                  className="object-cover"
-                />
-              */}
-            </div>
-
-            {/* Decorative accent */}
-            <div className="absolute -bottom-4 -right-4 h-24 w-24 rounded-full bg-[#8f9a68]/10 blur-2xl" />
-            <div className="absolute -top-6 -left-6 h-20 w-20 rounded-full bg-[#c4b896]/8 blur-2xl" />
+          <div className="relative aspect-[4/5] w-full max-w-[500px] overflow-hidden rounded-2xl border border-[#e6e1d6] bg-[#f7f4ee] shadow-[0_20px_60px_rgba(42,42,42,0.15)]">
+            <Image
+              src={MODERNIZATION_IMAGE}
+              alt="Cocina renovada con mobiliario de madera y cubierta clara"
+              fill
+              sizes="(max-width: 1024px) 100vw, 500px"
+              className="object-cover"
+            />
           </div>
         </motion.div>
       </div>

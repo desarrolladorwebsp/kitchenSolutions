@@ -212,7 +212,7 @@ export default function KitchenLeadForm() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="w-full overflow-hidden rounded-3xl border border-[#e6e1d6] bg-[#fcfaf7]/95 shadow-[0_24px_80px_rgba(18,18,18,0.18)] backdrop-blur-sm"
+          className="w-full overflow-hidden rounded-2xl border border-[#e6e1d6] bg-[#fcfaf7]/95 shadow-[0_24px_80px_rgba(18,18,18,0.18)] backdrop-blur-sm"
         >
           <div className="h-1.5 bg-[#ece8df]">
             <motion.div
@@ -319,7 +319,7 @@ export default function KitchenLeadForm() {
                 <button
                   type="submit"
                   disabled={!canContinue}
-                  className="inline-flex items-center gap-2 rounded-full bg-[#6b705c] px-6 py-2.5 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(107,112,92,0.28)] transition-all duration-200 hover:scale-[1.03] hover:bg-[#5f6452] active:scale-[0.98] disabled:pointer-events-none disabled:opacity-40"
+                  className="inline-flex items-center gap-2 rounded-full bg-[#65a30d] px-6 py-2.5 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(101,163,13,0.32)] transition-all duration-200 hover:scale-[1.03] hover:bg-[#4d7c0f] active:scale-[0.98] disabled:pointer-events-none disabled:opacity-40"
                 >
                   {step === TOTAL_STEPS ? "Enviar" : "Continuar"}
                   {step === TOTAL_STEPS ? (
