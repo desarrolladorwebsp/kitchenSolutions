@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Playfair_Display } from "next/font/google";
 import SiteFooter from "@/components/SiteFooter";
 import "./globals.css";
@@ -18,19 +18,92 @@ const playfair = Playfair_Display({
   subsets: ["latin"],
 });
 
+const siteUrl = "https://kitchensolutions.cl";
+
 export const metadata: Metadata = {
-  title: "SmartPro | Cocinas Premium",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Kitchen Solutions | Cocinas Premium en Chile",
+    template: "%s | Kitchen Solutions",
+  },
   description:
-    "Instalación y remodelación de cocinas premium. Completa el formulario y un diseñador experto te contactará por WhatsApp.",
+    "Diseño, fabricación e instalación de cocinas premium a medida en Chile. Cocina moderna, remodelación y asesoría personalizada con planificación 3D.",
+  applicationName: "Kitchen Solutions",
+  keywords: [
+    "cocinas premium Chile",
+    "diseño de cocinas",
+    "cocina a medida",
+    "remodelación de cocina",
+    "fabricación de cocinas",
+    "instalación de cocinas",
+    "cocina moderna",
+    "muebles de cocina",
+    "Kitchen Solutions",
+    "cocinas en Chicureo",
+    "cocinas en Santiago",
+  ],
+  authors: [{ name: "Kitchen Solutions" }],
+  creator: "Kitchen Solutions",
+  publisher: "Kitchen Solutions",
+  category: "home improvement",
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  openGraph: {
+    type: "website",
+    locale: "es_CL",
+    url: siteUrl,
+    siteName: "Kitchen Solutions",
+    title: "Kitchen Solutions | Cocinas Premium en Chile",
+    description:
+      "Encuentra cocinas premium, diseño 3D, mobiliario a medida y asesoría personalizada para transformar tu hogar.",
+    images: [
+      {
+        url: "/og-image.svg",
+        width: 1200,
+        height: 630,
+        alt: "Kitchen Solutions - Cocinas Premium",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Kitchen Solutions | Cocinas Premium en Chile",
+    description:
+      "Diseño, fabricación e instalación de cocinas premium a medida en Chile.",
+    images: ["/og-image.svg"],
+  },
+  icons: {
+    icon: "/icon.svg",
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
+  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#121212",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
-      lang="es"
+      lang="es-CL"
       className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} h-full scroll-smooth antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col bg-[#ffffff] text-[#171717]">
         {children}
         <SiteFooter />
       </body>

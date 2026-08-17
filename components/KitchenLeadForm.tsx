@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState, type ComponentType, type FormEvent } from "react";
+import { useEffect, useMemo, useState, type FormEvent } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -423,7 +423,7 @@ function StepOptions({
   onChange,
 }: {
   question: string;
-  options: { value: string; label: string; icon?: ComponentType<{ className?: string }> }[];
+  options: { value: string; label: string; icon?: unknown }[];
   value: string;
   onChange: (value: string) => void;
 }) {
@@ -431,9 +431,10 @@ function StepOptions({
     <div className="space-y-4">
       <h2 className="text-lg font-medium leading-snug text-[#121212]">{question}</h2>
       <div className="grid gap-3">
-        {options.map((option) => {
+        {options.map((option, index) => {
           const selected = value === option.value;
-          const Icon = option.icon;
+          const letter = String.fromCharCode(65 + index);
+
           return (
             <button
               key={option.value}
@@ -447,17 +448,15 @@ function StepOptions({
                   : "border-[#e6e1d6] bg-white hover:border-[#968a64]/60 hover:bg-[#fcfaf7]"
               }`}
             >
-              {Icon && (
-                <span
-                  className={`mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border transition ${
-                    selected
-                      ? "border-[#6b705c]/40 bg-[#6b705c]/15 text-[#6b705c]"
-                      : "border-[#e6e1d6] bg-[#fcfaf7] text-[#968a64] group-hover:text-[#6b705c]"
-                  }`}
-                >
-                  <Icon className="h-4 w-4" />
-                </span>
-              )}
+              <span
+                className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border text-xs font-semibold transition ${
+                  selected
+                    ? "border-[#6b705c]/40 bg-[#6b705c]/15 text-[#6b705c]"
+                    : "border-[#e6e1d6] bg-[#fcfaf7] text-[#968a64] group-hover:text-[#6b705c]"
+                }`}
+              >
+                {letter}
+              </span>
               <span className="text-sm leading-relaxed text-[#121212]">{option.label}</span>
             </button>
           );

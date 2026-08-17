@@ -177,10 +177,10 @@ export default function SiteFooter() {
               <Image
                 src="/images/logo-smartpro.png"
                 alt="SmartPro"
-                width={92}
-                height={24}
-                sizes="92px"
-                className="h-5 w-auto object-contain"
+                width={104}
+                height={36}
+                sizes="104px"
+                className="h-8 w-auto object-contain bg-white rounded-sm p-0.5 px-2"
               />
             </a>
           </div>
