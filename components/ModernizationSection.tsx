@@ -1,10 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowLeftRight, ArrowRight, Sparkles } from "lucide-react";
 
-const MODERNIZATION_IMAGE = "/images/8067d353-09b9-4027-b9cb-61408a3c9fce.jpeg";
+const BEFORE_IMAGE = "/images/antes-despues/antes.jpeg";
+const AFTER_IMAGE = "/images/antes-despues/despues.png";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 22 },
@@ -24,6 +26,8 @@ const container = {
 };
 
 export default function ModernizationSection() {
+  const [sliderPosition, setSliderPosition] = useState(58);
+
   return (
     <section className="border-b border-[#e8e3dd] bg-[#fcfaf7]">
       <div className="mx-auto grid w-full max-w-[1280px] grid-cols-1 items-center gap-8 px-4 py-10 sm:px-8 sm:py-16 lg:grid-cols-2 lg:gap-16 lg:px-12 lg:py-24">
@@ -116,15 +120,57 @@ export default function ModernizationSection() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          className="order-1 lg:order-2 flex justify-center lg:justify-end"
+          className="order-1 flex justify-center lg:order-2 lg:justify-end"
         >
-          <div className="relative aspect-[4/5] w-full max-w-[500px] overflow-hidden rounded-2xl border border-[#e6e1d6] bg-[#f7f4ee] shadow-[0_20px_60px_rgba(42,42,42,0.15)]">
-            <Image
-              src={MODERNIZATION_IMAGE}
-              alt="Cocina renovada con mobiliario de madera y cubierta clara"
-              fill
-              sizes="(max-width: 1024px) 100vw, 500px"
-              className="object-cover"
+          <div className="relative aspect-[3/4] w-full max-w-[420px] overflow-hidden rounded-2xl border border-[#e6e1d6] bg-[#f7f4ee] shadow-[0_20px_60px_rgba(42,42,42,0.15)]">
+            <div className="absolute inset-0">
+              <Image
+                src={BEFORE_IMAGE}
+                alt="Cocina antes de la remodelación"
+                fill
+                sizes="(max-width: 1024px) 100vw, 420px"
+                className="h-full w-full object-cover object-center"
+              />
+            </div>
+
+            <div
+              className="absolute inset-0 z-10 overflow-hidden"
+              style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
+            >
+              <Image
+                src={AFTER_IMAGE}
+                alt="Cocina después de la remodelación"
+                fill
+                sizes="(max-width: 1024px) 100vw, 420px"
+                className="h-full w-full object-cover object-center brightness-[0.9] contrast-[1.05]"
+              />
+            </div>
+
+            <div
+              className="absolute inset-y-0 z-20"
+              style={{ left: `calc(${sliderPosition}% - 1px)` }}
+            >
+              <div className="h-full w-[2px] bg-white/90 shadow-[0_0_12px_rgba(255,255,255,0.8)]" />
+              <div className="absolute left-1/2 top-1/2 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/80 bg-black/35 text-white shadow-lg backdrop-blur-sm">
+                <ArrowLeftRight className="h-4 w-4" />
+              </div>
+            </div>
+
+            <div className="absolute left-3 top-3 z-30 inline-flex items-center rounded-full border border-white/20 bg-black/20 px-2.5 py-1 text-[9px] font-medium uppercase tracking-[0.18em] text-white/90 backdrop-blur-sm sm:text-[10px]">
+              Antes
+            </div>
+            <div className="absolute right-3 top-3 z-30 inline-flex items-center rounded-full border border-white/20 bg-black/20 px-2.5 py-1 text-[9px] font-medium uppercase tracking-[0.18em] text-white/90 backdrop-blur-sm sm:text-[10px]">
+              Después
+            </div>
+
+            <input
+              type="range"
+              min={0}
+              max={100}
+              value={sliderPosition}
+              onChange={(event) => setSliderPosition(Number(event.target.value))}
+              aria-label="Desliza para comparar antes y después"
+              className="absolute inset-0 z-40 h-full w-full cursor-ew-resize appearance-none bg-transparent opacity-0"
             />
           </div>
         </motion.div>
