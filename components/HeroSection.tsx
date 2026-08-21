@@ -72,7 +72,7 @@ export default function HeroSection() {
 
   return (
     <section className="bg-[#121212]">
-      <div className="relative isolate flex min-h-screen flex-col overflow-hidden">
+      <div className="relative isolate flex min-h-[82vh] flex-col overflow-hidden md:min-h-screen">
         <div className="pointer-events-none absolute inset-0 lg:hidden">
           <Image
             src={KITCHEN_BG}
@@ -109,24 +109,24 @@ export default function HeroSection() {
 
         <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-[58%] bg-gradient-to-r from-[#121212]/25 via-[#121212]/10 to-transparent lg:block" />
 
-        <div className="relative z-10 mx-auto grid w-full max-w-[1280px] flex-1 grid-cols-1 items-center gap-12 px-6 py-10 sm:px-8 sm:py-12 lg:grid-cols-12 lg:px-12 xl:gap-16">
+        <div className="relative z-10 mx-auto grid w-full max-w-[1280px] flex-1 grid-cols-1 items-center gap-6 px-4 py-6 sm:px-8 sm:py-12 lg:grid-cols-12 lg:px-12 lg:gap-12 xl:gap-16">
         <motion.div
           variants={container}
           initial="hidden"
           animate="show"
-          className="-mx-6 -mt-10 max-w-none bg-black/85 px-6 pb-10 pt-10 sm:-mx-8 sm:-mt-12 sm:px-8 sm:pt-12 lg:mx-0 lg:my-0 lg:max-w-[560px] lg:bg-transparent lg:px-0 lg:py-0 lg:col-span-6"
+          className="-mx-4 -mt-6 max-w-none bg-black/85 px-4 pb-6 pt-6 sm:-mx-8 sm:-mt-12 sm:px-8 sm:pt-12 lg:mx-0 lg:my-0 lg:max-w-[560px] lg:bg-transparent lg:px-0 lg:py-0 lg:col-span-6"
         >
           <motion.div
             variants={fadeUp}
-            className="inline-flex items-center gap-2 rounded-full border border-[#968a64] px-4 py-[7px] text-[11px] font-medium uppercase tracking-[0.18em] text-[#c4b896]"
+            className="inline-flex items-center gap-2 rounded-full border border-[#968a64] px-3 py-[6px] text-[9px] font-medium uppercase tracking-[0.16em] text-[#c4b896] sm:px-4 sm:py-[7px] sm:text-[11px]"
           >
-            <Sparkles className="h-3.5 w-3.5 text-[#968a64]" />
+            <Sparkles className="h-3 w-3 text-[#968a64] sm:h-3.5 sm:w-3.5" />
             DISEÑO 3D • FABRICACIÓN PROPIA • INSTALACIÓN PREMIUM
           </motion.div>
 
           <motion.h1
             variants={fadeUp}
-            className="font-serif mt-7 text-[40px] font-medium leading-[1.18] text-white sm:text-[42px] lg:text-[52px]"
+            className="font-serif mt-5 text-[30px] font-medium leading-[1.12] text-white sm:mt-7 sm:text-[42px] lg:text-[52px]"
           >
             Tu cocina soñada,{" "}
             <span className="text-[#8f9a68]">diseñada en 3D</span> y fabricada
@@ -136,34 +136,34 @@ export default function HeroSection() {
 
           <motion.p
             variants={fadeUp}
-            className="mt-6 max-w-[500px] text-[17px] leading-[1.7] text-white/80"
+            className="mt-4 max-w-[500px] text-[14px] leading-[1.6] text-white/80 sm:mt-6 sm:text-[17px] sm:leading-[1.7]"
           >
             Visualiza cada detalle de tu nuevo espacio antes de instalarlo. Nos
             encargamos de todo el proceso con materiales de alta gama y fechas
             de entrega garantizadas por contrato.
           </motion.p>
 
-          <motion.div variants={fadeUp} className="mt-9">
+          <motion.div variants={fadeUp} className="mt-6 sm:mt-9">
             <button
               type="button"
               onClick={scrollToForm}
-              className="group inline-flex items-center gap-3 rounded-full bg-[#65a30d] px-8 py-4 text-[16px] font-medium text-white shadow-[0_10px_30px_rgba(101,163,13,0.32)] transition-all duration-200 hover:scale-[1.02] hover:bg-[#4d7c0f] active:scale-[0.98]"
+              className="group inline-flex items-center gap-3 rounded-full bg-[#65a30d] px-5 py-3 text-[14px] font-medium text-white shadow-[0_10px_30px_rgba(101,163,13,0.32)] transition-all duration-200 hover:scale-[1.02] hover:bg-[#4d7c0f] active:scale-[0.98] sm:px-8 sm:py-4 sm:text-[16px]"
             >
-              <Wand2 className="h-[18px] w-[18px]" />
+              <Wand2 className="h-[16px] w-[16px] sm:h-[18px] sm:w-[18px]" />
              Agenda visita a domicilio
 
-              <ArrowRight className="h-[18px] w-[18px] transition-transform duration-200 group-hover:translate-x-0.5" />
+              <ArrowRight className="h-[16px] w-[16px] transition-transform duration-200 group-hover:translate-x-0.5 sm:h-[18px] sm:w-[18px]" />
             </button>
           </motion.div>
 
           <motion.div
             variants={fadeUp}
-            className="mt-10 flex items-start gap-8 text-[#c4b896]"
+            className="mt-7 flex flex-wrap items-start gap-4 text-[#c4b896] sm:mt-10 sm:gap-8"
           >
             {FEATURES.map(({ icon: Icon, label }) => (
-              <div key={label} className="flex max-w-[150px] items-start gap-2.5">
-                <Icon className="mt-0.5 h-5 w-5 shrink-0" strokeWidth={1.75} />
-                <span className="text-[13px] leading-snug">{label}</span>
+              <div key={label} className="flex max-w-[120px] items-start gap-2.5 sm:max-w-[150px]">
+                <Icon className="mt-0.5 h-4 w-4 shrink-0 sm:h-5 sm:w-5" strokeWidth={1.75} />
+                <span className="text-[11px] leading-snug sm:text-[13px]">{label}</span>
               </div>
             ))}
           </motion.div>
@@ -192,20 +192,20 @@ export default function HeroSection() {
         </motion.div>
         </div>
 
-        <div className="relative z-10 border-b border-[#e8e3dd] bg-[#fcfaf7] py-8">
-          <div className="mx-auto grid max-w-[1280px] grid-cols-1 divide-y divide-neutral-300/80 px-6 sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:px-8 lg:px-12">
+        <div className="relative z-10 border-b border-[#e8e3dd] bg-[#fcfaf7] py-5 sm:py-8">
+          <div className="mx-auto grid max-w-[1280px] grid-cols-1 divide-y divide-neutral-300/80 px-4 sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:px-8 lg:px-12">
             {STATS.map(({ icon: Icon, accent, rest, iconWrap }) => (
-              <div key={accent} className="flex items-center gap-5 py-6 sm:px-8 sm:py-0 sm:first:pl-0 sm:last:pr-0">
+              <div key={accent} className="flex items-center gap-3 py-4 sm:gap-5 sm:px-8 sm:py-0 sm:first:pl-0 sm:last:pr-0">
                 <span
-                  className={`flex h-16 w-16 shrink-0 items-center justify-center rounded-full shadow-sm ${iconWrap}`}
+                  className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full shadow-sm sm:h-16 sm:w-16 ${iconWrap}`}
                 >
-                  <Icon className="h-7 w-7" strokeWidth={2} />
+                  <Icon className="h-5 w-5 sm:h-7 sm:w-7" strokeWidth={2} />
                 </span>
                 <div>
-                  <p className="text-[20px] font-semibold leading-tight text-[#6b705c]">
+                  <p className="text-[16px] font-semibold leading-tight text-[#6b705c] sm:text-[20px]">
                     {accent}
                   </p>
-                  <p className="mt-0.5 text-[14px] leading-snug text-neutral-600">{rest}</p>
+                  <p className="mt-0.5 text-[11px] leading-snug text-neutral-600 sm:text-[14px]">{rest}</p>
                 </div>
               </div>
             ))}

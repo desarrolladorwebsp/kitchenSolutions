@@ -2,34 +2,18 @@
 
 import { useRef, useState } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, ArrowRight, Sparkles } from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowRight, Sparkles, X } from "lucide-react";
 
-const projects = [
-  {
-    type: "Cocina contemporánea",
-    title: "Línea clara y cálida",
-    mediaType: "image",
-    src: "/images/kitchen-01.jpeg",
-  },
-  {
-    type: "Cocina premium",
-    title: "Materiales nobles",
-    mediaType: "image",
-    src: "/images/18ef83a0-48ff-41d8-bd20-0d9250d3d074.jpeg",
-  },
-  {
-    type: "Cocina funcional",
-    title: "Espacio pensado para vivir",
-    mediaType: "video",
-    src: "/videos/kitchen-01.mp4",
-  },
-  {
-    type: "Cocina moderna",
-    title: "Luz, orden y diseño",
-    mediaType: "image",
-    src: "/images/6c7ec718-35a8-4ed6-8e8b-48f6c4742db8.jpeg",
-  },
+const galleryProjects = [
+  { title: "Línea clara", subtitle: "Minimalista", src: "/images/gallery/image-01.png" },
+  { title: "Materiales nobles", subtitle: "Cálido", src: "/images/gallery/image-02.png" },
+  { title: "Espacio vivo", subtitle: "Funcional", src: "/images/gallery/image-03.png" },
+  { title: "Luz moderna", subtitle: "Contemporáneo", src: "/images/gallery/image-04.png" },
+  { title: "Elegancia atemporal", subtitle: "Premium", src: "/images/gallery/image-05.png" },
+  { title: "Orden y estilo", subtitle: "Refinamiento", src: "/images/gallery/image-06.png" },
+  { title: "Calidez natural", subtitle: "Acogedor", src: "/images/gallery/image-07.png" },
+  { title: "Diseño pensado", subtitle: "Residencial", src: "/images/gallery/image-08.png" },
 ];
 
 const fadeUp = {
@@ -41,30 +25,30 @@ const fadeUp = {
   },
 };
 
-const SWIPE_OFFSET = 50;
-
 export default function ProjectsShowcase() {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [selectedImage, setSelectedImage] = useState<
+    (typeof galleryProjects)[number] | null
+  >(null);
+  const [mobileIndex, setMobileIndex] = useState(0);
   const swipeStartX = useRef<number | null>(null);
-  const visibleProjects = [
-    projects[currentIndex],
-    projects[(currentIndex + 1) % projects.length],
-    projects[(currentIndex + 2) % projects.length],
-  ];
 
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % projects.length);
+  const mobileProject = galleryProjects[mobileIndex];
+
+  const nextMobileImage = () => {
+    setMobileIndex((prev) => (prev + 1) % galleryProjects.length);
   };
 
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + projects.length) % projects.length);
+  const prevMobileImage = () => {
+    setMobileIndex(
+      (prev) => (prev - 1 + galleryProjects.length) % galleryProjects.length,
+    );
   };
 
   return (
     <section className="relative overflow-hidden bg-[#f7f4ee]">
       <div className="absolute inset-0 bg-[url('/images/bg/bg-vertical.png')] bg-cover bg-center bg-no-repeat md:bg-[url('/images/bg/bg-image.png')]" />
 
-      <div className="relative mx-auto w-full max-w-[1280px] px-6 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-24">
+      <div className="relative mx-auto w-full max-w-[1280px] px-4 py-14 sm:px-6 sm:py-18 lg:px-12 lg:py-24">
         <motion.div
           initial="hidden"
           whileInView="show"
@@ -80,7 +64,7 @@ export default function ProjectsShowcase() {
         >
           <motion.div
             variants={fadeUp}
-            className="inline-flex items-center gap-2 rounded-full border border-[#c4b896] bg-white/40 px-4 py-[7px] text-[11px] font-medium uppercase tracking-[0.18em] text-[#8f9a68]"
+            className="inline-flex items-center gap-2 rounded-full border border-[#c4b896] bg-white/60 px-4 py-[7px] text-[10px] font-medium uppercase tracking-[0.2em] text-[#8f9a68] shadow-sm"
           >
             <Sparkles className="h-3.5 w-3.5 text-[#c4a574]" />
             Cocinas creadas con estilo
@@ -88,42 +72,16 @@ export default function ProjectsShowcase() {
 
           <motion.h2
             variants={fadeUp}
-            className="font-serif mt-6 text-[36px] font-medium leading-[1.2] text-[#2a2a2a] sm:text-[42px] lg:text-[48px]"
+            className="mt-5 font-serif text-[30px] font-medium leading-[1.15] text-[#2a2a2a] sm:text-[40px] lg:text-[48px]"
           >
-            Diseños que elevan la experiencia de cocinar
+            Diseño moderno para vivir mejor cada día
           </motion.h2>
         </motion.div>
 
-        <div className="mt-10 hidden items-center justify-end gap-3 md:flex">
-          <button
-            type="button"
-            onClick={prevSlide}
-            aria-label="Proyecto anterior"
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-[#d9d0c3] bg-white/80 text-[#2a2a2a] shadow-sm transition hover:border-[#b8b09c] hover:bg-white"
-          >
-            <ArrowLeft className="h-4 w-4" />
-          </button>
-          <button
-            type="button"
-            onClick={nextSlide}
-            aria-label="Siguiente proyecto"
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-[#d9d0c3] bg-white/80 text-[#2a2a2a] shadow-sm transition hover:border-[#b8b09c] hover:bg-white"
-          >
-            <ArrowRight className="h-4 w-4" />
-          </button>
-        </div>
-
-        <div className="mt-8 md:hidden">
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.article
-              key={projects[currentIndex].title}
-              initial={{ opacity: 0, x: 28 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -28 }}
-              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-              drag="x"
-              dragConstraints={{ left: 0, right: 0 }}
-              dragElastic={0.18}
+        <div className="mt-8 sm:mt-10">
+          <div className="block md:hidden">
+            <div
+              className="relative overflow-hidden rounded-[24px] border border-[#e9e1d7] bg-white/60 shadow-[0_18px_50px_rgba(34,34,34,0.06)]"
               onPointerDown={(event) => {
                 swipeStartX.current = event.clientX;
               }}
@@ -131,74 +89,154 @@ export default function ProjectsShowcase() {
                 const swipeOffset = event.clientX - (swipeStartX.current ?? event.clientX);
                 swipeStartX.current = null;
 
-                if (swipeOffset <= -SWIPE_OFFSET) {
-                  nextSlide();
-                } else if (swipeOffset >= SWIPE_OFFSET) {
-                  prevSlide();
+                if (swipeOffset <= -40) {
+                  nextMobileImage();
+                } else if (swipeOffset >= 40) {
+                  prevMobileImage();
                 }
               }}
-              onPointerCancel={() => {
+              onPointerLeave={() => {
                 swipeStartX.current = null;
               }}
-              className="overflow-hidden rounded-2xl border border-[#e6e1d6] bg-white/60 shadow-[0_18px_50px_rgba(34,34,34,0.06)] backdrop-blur-sm"
             >
-              <div className="p-4 pb-0">
-                <ProjectMedia project={projects[currentIndex]} sizes="100vw" />
-              </div>
-              <ProjectDetails project={projects[currentIndex]} />
-            </motion.article>
-          </AnimatePresence>
-          <div className="mt-4 flex justify-center gap-2" aria-label="Navegación de proyectos">
-            {projects.map((project, index) => {
-              const selected = index === currentIndex;
-              return (
+              <motion.div
+                key={mobileProject.title}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.28 }}
+                className="relative h-[380px] overflow-hidden"
+              >
+                <div
+                  onClick={() => setSelectedImage(mobileProject)}
+                  className="relative h-full w-full cursor-pointer"
+                >
+                  <Image
+                    src={mobileProject.src}
+                    alt={mobileProject.title}
+                    fill
+                    sizes="100vw"
+                    className="h-full w-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a]/70 via-[#1a1a1a]/10 to-transparent" />
+                  <div className="absolute inset-x-0 bottom-0 p-4">
+                    <span className="mb-2 inline-flex items-center rounded-full border border-white/30 bg-white/10 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.22em] text-white/90 backdrop-blur-sm">
+                      {mobileProject.subtitle}
+                    </span>
+                    <h3 className="max-w-[14ch] text-[30px] font-medium leading-[1.05] text-white drop-shadow-[0_4px_14px_rgba(0,0,0,0.35)]">
+                      {mobileProject.title}
+                    </h3>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+
+            <div className="mt-4 flex items-center justify-center gap-2" aria-label="Navegación de imágenes móviles">
+              {galleryProjects.map((project, index) => (
                 <button
                   key={project.title}
                   type="button"
-                  aria-label={`Ver proyecto ${index + 1}`}
-                  aria-current={selected ? "true" : undefined}
-                  onClick={() => setCurrentIndex(index)}
-                  className={`h-2.5 rounded-full transition-all duration-200 ${
-                    selected ? "w-6 bg-[#6b705c]" : "w-2.5 bg-[#d8d2c6] hover:bg-[#968a64]"
+                  aria-label={`Ver imagen ${index + 1}`}
+                  aria-current={index === mobileIndex ? "true" : undefined}
+                  onClick={() => setMobileIndex(index)}
+                  className={`h-2.4 rounded-full transition-all duration-200 ${
+                    index === mobileIndex ? "w-7 bg-[#6b705c]" : "w-2.4 bg-[#d8d2c6]"
                   }`}
                 />
-              );
-            })}
+              ))}
+            </div>
+          </div>
+
+          <div className="hidden gap-3 sm:gap-4 md:grid md:grid-cols-2 xl:grid-cols-4">
+            {galleryProjects.map((project, index) => (
+              <motion.article
+                key={project.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.5, delay: index * 0.08 }}
+                className="group relative cursor-pointer overflow-hidden rounded-[24px] border border-[#e9e1d7] bg-white/60 shadow-[0_18px_50px_rgba(34,34,34,0.06)]"
+                onClick={() => setSelectedImage(project)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    setSelectedImage(project);
+                  }
+                }}
+                tabIndex={0}
+                role="button"
+                aria-label={`Abrir imagen de ${project.title}`}
+              >
+                <div className="relative h-[340px] overflow-hidden sm:h-[420px] xl:h-[500px]">
+                  <Image
+                    src={project.src}
+                    alt={project.title}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 25vw"
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a]/70 via-[#1a1a1a]/10 to-transparent" />
+                  <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
+                    <span className="mb-2 inline-flex items-center rounded-full border border-white/30 bg-white/10 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.22em] text-white/90 backdrop-blur-sm">
+                      {project.subtitle}
+                    </span>
+                    <h3 className="max-w-[16ch] text-[22px] font-medium leading-[1.08] text-white drop-shadow-[0_4px_14px_rgba(0,0,0,0.35)] sm:text-[26px]">
+                      {project.title}
+                    </h3>
+                  </div>
+                </div>
+              </motion.article>
+            ))}
           </div>
         </div>
 
-        <div className="mt-8 hidden overflow-hidden md:block">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentIndex}
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -30 }}
-              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-              className="grid gap-8 md:grid-cols-2 xl:grid-cols-3"
-            >
-              {visibleProjects.map((project, index) => (
-                <motion.article
-                  key={`${project.title}-${index}`}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.08 }}
-                  className="group overflow-hidden rounded-2xl border border-[#e6e1d6] bg-white/60 shadow-[0_18px_50px_rgba(34,34,34,0.06)] backdrop-blur-sm"
-                >
-                  <div className="p-4 pb-0">
-                    <ProjectMedia
-                      project={project}
-                      sizes="(max-width: 1280px) 50vw, 33vw"
-                    />
-                  </div>
-                  <ProjectDetails project={project} />
-                </motion.article>
-              ))}
-            </motion.div>
-          </AnimatePresence>
-        </div>
+        {selectedImage && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-[#111111]/80 p-4 backdrop-blur-sm"
+            onClick={() => setSelectedImage(null)}
+          >
+            <div className="relative w-full max-w-5xl overflow-hidden rounded-[28px] border border-white/10 bg-[#171717] shadow-[0_25px_80px_rgba(0,0,0,0.45)]">
+              <button
+                type="button"
+                aria-label="Cerrar imagen"
+                onClick={() => setSelectedImage(null)}
+                className="absolute right-3 top-3 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-black/30 text-white transition hover:bg-black/50"
+              >
+                <X className="h-5 w-5" />
+              </button>
 
-        <div className="mt-10 flex justify-center">
+              <div className="relative aspect-[16/10] w-full">
+                <Image
+                  src={selectedImage.src}
+                  alt={selectedImage.title}
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
+
+              <div className="flex items-center justify-between gap-3 border-t border-white/10 bg-[#111111]/90 px-5 py-4 text-white">
+                <div>
+                  <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-[#d4d1c8]">
+                    {selectedImage.subtitle}
+                  </p>
+                  <h3 className="mt-1 text-xl font-medium sm:text-2xl">
+                    {selectedImage.title}
+                  </h3>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setSelectedImage(null)}
+                  className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-medium text-white transition hover:bg-white/10"
+                >
+                  Cerrar
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div className="mt-9 flex justify-center">
           <button
             type="button"
             onClick={() =>
@@ -206,52 +244,14 @@ export default function ProjectsShowcase() {
                 behavior: "smooth",
               })
             }
-            className="group inline-flex items-center gap-3 rounded-full bg-[#65a30d] px-6 py-3.5 text-[15px] font-medium text-white shadow-[0_10px_30px_rgba(101,163,13,0.32)] transition-all duration-200 hover:scale-[1.02] hover:bg-[#4d7c0f] active:scale-[0.98]"
+            className="group inline-flex items-center gap-3 rounded-full bg-[#65a30d] px-5 py-3 text-[14px] font-medium text-white shadow-[0_10px_30px_rgba(101,163,13,0.32)] transition-all duration-200 hover:scale-[1.02] hover:bg-[#4d7c0f] active:scale-[0.98] sm:px-6 sm:text-[15px]"
           >
-            <Sparkles className="h-[18px] w-[18px]" />
-            Agenda visita a domicilio
-            <ArrowRight className="h-[18px] w-[18px] transition-transform duration-200 group-hover:translate-x-0.5" />
+            <Sparkles className="h-[16px] w-[16px] sm:h-[18px] sm:w-[18px]" />
+            Agenda una visita
+            <ArrowRight className="h-[16px] w-[16px] transition-transform duration-200 group-hover:translate-x-0.5 sm:h-[18px] sm:w-[18px]" />
           </button>
         </div>
       </div>
     </section>
-  );
-}
-
-function ProjectMedia({
-  project,
-  sizes,
-}: {
-  project: (typeof projects)[number];
-  sizes: string;
-}) {
-  return (
-    <div className="relative h-[360px] overflow-hidden rounded-[20px] border border-[#e7dfd6] bg-[#f3efe9]">
-      {project.mediaType === "video" ? (
-        <video
-          src={project.src}
-          muted
-          loop
-          autoPlay
-          playsInline
-          className="h-full w-full object-cover"
-        />
-      ) : (
-        <Image src={project.src} alt={project.title} fill sizes={sizes} className="object-cover" />
-      )}
-    </div>
-  );
-}
-
-function ProjectDetails({ project }: { project: (typeof projects)[number] }) {
-  return (
-    <div className="p-6">
-      <span className="text-[11px] font-medium uppercase tracking-[0.18em] text-[#8f9a68]">
-        {project.type}
-      </span>
-      <h3 className="mt-3 text-[24px] font-medium leading-tight text-[#2a2a2a]">
-        {project.title}
-      </h3>
-    </div>
   );
 }

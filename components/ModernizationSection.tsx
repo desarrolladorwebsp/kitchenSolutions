@@ -26,7 +26,7 @@ const container = {
 export default function ModernizationSection() {
   return (
     <section className="border-b border-[#e8e3dd] bg-[#fcfaf7]">
-      <div className="mx-auto grid w-full max-w-[1280px] grid-cols-1 items-center gap-12 px-6 py-16 sm:px-8 sm:py-20 lg:grid-cols-2 lg:gap-16 lg:px-12 lg:py-24">
+      <div className="mx-auto grid w-full max-w-[1280px] grid-cols-1 items-center gap-8 px-4 py-10 sm:px-8 sm:py-16 lg:grid-cols-2 lg:gap-16 lg:px-12 lg:py-24">
         <motion.div
           variants={container}
           initial="hidden"
@@ -36,15 +36,15 @@ export default function ModernizationSection() {
         >
           <motion.div
             variants={fadeUp}
-            className="inline-flex items-center gap-2 rounded-full border border-[#c4b896] px-4 py-[7px] text-[11px] font-medium uppercase tracking-[0.18em] text-[#8f9a68]"
+            className="inline-flex items-center gap-2 rounded-full border border-[#c4b896] px-3 py-[6px] text-[9px] font-medium uppercase tracking-[0.16em] text-[#8f9a68] sm:px-4 sm:py-[7px] sm:text-[11px]"
           >
-            <Sparkles className="h-3.5 w-3.5 text-[#c4a574]" />
+            <Sparkles className="h-3 w-3 text-[#c4a574] sm:h-3.5 sm:w-3.5" />
             REMODELACIÓN • MODERNIZACIÓN • RENOVACIÓN
           </motion.div>
 
           <motion.h2
             variants={fadeUp}
-            className="font-serif mt-6 text-[36px] font-medium leading-[1.2] text-[#2a2a2a] sm:text-[42px] lg:text-[48px]"
+            className="font-serif mt-5 text-[30px] font-medium leading-[1.12] text-[#2a2a2a] sm:mt-6 sm:text-[42px] lg:text-[48px]"
           >
             Transformamos tu cocina en un{" "}
             <span className="text-[#8f9a68]">espacio moderno</span>
@@ -52,7 +52,7 @@ export default function ModernizationSection() {
 
           <motion.p
             variants={fadeUp}
-            className="mt-6 text-[17px] leading-[1.8] text-neutral-700"
+            className="mt-4 text-[14px] leading-[1.6] text-neutral-700 sm:mt-6 sm:text-[17px] sm:leading-[1.8]"
           >
             Renovamos tu cocina para convertirla en un espacio donde el diseño y
             la funcionalidad se encuentran. Optimizamos cada rincón, incorporamos
@@ -62,7 +62,7 @@ export default function ModernizationSection() {
 
           <motion.p
             variants={fadeUp}
-            className="mt-5 text-[17px] leading-[1.8] text-neutral-700"
+            className="mt-4 text-[14px] leading-[1.6] text-neutral-700 sm:mt-5 sm:text-[17px] sm:leading-[1.8]"
           >
             El resultado es una cocina más cómoda, práctica y pensada para
             disfrutarla todos los días. Un espacio que no solo se ve mejor, sino
@@ -71,30 +71,30 @@ export default function ModernizationSection() {
 
           <motion.div
             variants={fadeUp}
-            className="mt-8 flex flex-col gap-6 sm:flex-row sm:items-center"
+            className="mt-6 flex flex-col gap-4 sm:mt-8 sm:flex-row sm:items-center sm:gap-6"
           >
-            <div className="flex items-center gap-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#b8e0b0]">
-                <span className="text-lg font-semibold text-[#2f7a3a]">✓</span>
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#b8e0b0] sm:h-12 sm:w-12">
+                <span className="text-base font-semibold text-[#2f7a3a] sm:text-lg">✓</span>
               </div>
               <div>
-                <p className="font-semibold text-[#2a2a2a]">Diseño personalizado</p>
-                <p className="text-sm text-neutral-600">Adaptado a tu estilo</p>
+                <p className="text-sm font-semibold text-[#2a2a2a] sm:text-base">Diseño personalizado</p>
+                <p className="text-xs text-neutral-600 sm:text-sm">Adaptado a tu estilo</p>
               </div>
             </div>
 
-            <div className="flex items-center gap-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#f3d09a]">
-                <span className="text-lg font-semibold text-[#c67a18]">✓</span>
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#f3d09a] sm:h-12 sm:w-12">
+                <span className="text-base font-semibold text-[#c67a18] sm:text-lg">✓</span>
               </div>
               <div>
-                <p className="font-semibold text-[#2a2a2a]">Funcionalidad mejorada</p>
-                <p className="text-sm text-neutral-600">Más espacio y confort</p>
+                <p className="text-sm font-semibold text-[#2a2a2a] sm:text-base">Funcionalidad mejorada</p>
+                <p className="text-xs text-neutral-600 sm:text-sm">Más espacio y confort</p>
               </div>
             </div>
           </motion.div>
 
-          <motion.div variants={fadeUp} className="mt-8">
+          <motion.div variants={fadeUp} className="mt-6 sm:mt-8">
             <button
               type="button"
               onClick={() =>
@@ -102,11 +102,11 @@ export default function ModernizationSection() {
                   behavior: "smooth",
                 })
               }
-              className="group inline-flex items-center gap-3 rounded-full bg-[#65a30d] px-6 py-3.5 text-[15px] font-medium text-white shadow-[0_10px_30px_rgba(101,163,13,0.32)] transition-all duration-200 hover:scale-[1.02] hover:bg-[#4d7c0f] active:scale-[0.98]"
+              className="group inline-flex items-center gap-3 rounded-full bg-[#65a30d] px-5 py-3 text-[14px] font-medium text-white shadow-[0_10px_30px_rgba(101,163,13,0.32)] transition-all duration-200 hover:scale-[1.02] hover:bg-[#4d7c0f] active:scale-[0.98] sm:px-6 sm:py-3.5 sm:text-[15px]"
             >
-              <Sparkles className="h-[18px] w-[18px]" />
+              <Sparkles className="h-[16px] w-[16px] sm:h-[18px] sm:w-[18px]" />
               Agenda visita a domicilio
-              <ArrowRight className="h-[18px] w-[18px] transition-transform duration-200 group-hover:translate-x-0.5" />
+              <ArrowRight className="h-[16px] w-[16px] transition-transform duration-200 group-hover:translate-x-0.5 sm:h-[18px] sm:w-[18px]" />
             </button>
           </motion.div>
         </motion.div>
