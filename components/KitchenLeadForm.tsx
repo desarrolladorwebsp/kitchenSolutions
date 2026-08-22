@@ -91,7 +91,7 @@ const KITCHEN_SIZES = [
 ];
 
 const BUDGET_OPTIONS = [
-  { value: "2-5", label: "Entre $2.000.000 a $5.000.000" },
+  { value: "2-5", label: "Entre $2.500.000 a $5.000.000" },
   { value: "5-8", label: "Entre $5.000.000 a $8.000.000" },
   { value: "8-12", label: "Entre $8.000.000 a $12.000.000" },
   { value: "12+", label: "Más de $12.000.000" },

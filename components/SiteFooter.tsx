@@ -2,7 +2,7 @@ import Image from "next/image";
 import { ExternalLink, Mail, MapPin, Phone } from "lucide-react";
 
 const COMPANY_URL = "https://kitchensolutions.cl";
-const LOGO_URL = `${COMPANY_URL}/wp-content/uploads/2025/12/LOGONEW3.png`;
+const LOGO_URL = "/images/logo-kitchen-solution.png";
 const HABITISSIMO_URL = "/images/logo-habitissimo.png";
 const KITCHEN_CENTER_URL = "/images/logo-kitchen-center.png";
 const MERCADO_PAGO_URL = "/images/logo-mercado-pago.png";
@@ -69,19 +69,10 @@ export default function SiteFooter() {
                 <Phone className="mt-0.5 h-5 w-5 shrink-0 text-[#c4a574]" />
                 <span>
                   <span className="block text-sm text-white/55">Ventas</span>
-                  <span className="mt-1 block font-medium">+56 9 9538 2703</span>
+                  <span className="mt-1 block font-medium">+56 9 ---- ----</span>
                 </span>
               </a>
-              <a
-                href="tel:+56979263642"
-                className="flex items-start gap-3 text-white/80 transition hover:text-white"
-              >
-                <Phone className="mt-0.5 h-5 w-5 shrink-0 text-[#c4a574]" />
-                <span>
-                  <span className="block text-sm text-white/55">Diseño</span>
-                  <span className="mt-1 block font-medium">+56 9 7926 3642</span>
-                </span>
-              </a>
+    
               <a
                 href="mailto:ventas@kitchensolutions.cl"
                 className="flex items-center gap-3 text-sm text-white/80 transition hover:text-white"
@@ -89,15 +80,7 @@ export default function SiteFooter() {
                 <Mail className="h-5 w-5 shrink-0 text-[#c4a574]" />
                 ventas@kitchensolutions.cl
               </a>
-              <a
-                href="https://www.google.com/maps/search/?api=1&query=Galer%C3%ADa+San+Mart%C3%ADn+local+C2%2C+parcela+20%2C+Chicureo%2C+Colina"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-start gap-3 text-sm leading-relaxed text-white/70 transition hover:text-white"
-              >
-                <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-[#c4a574]" />
-                Galería San Martín local C2, parcela 20, Chicureo, Colina, Región Metropolitana.
-              </a>
+           
             </div>
           </div>
 
