@@ -9,7 +9,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "kitchensolutions.cl",
+        hostname: "kitchensolution.cl",
       },
     ],
   },

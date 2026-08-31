@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { ExternalLink, Mail, MapPin, Phone } from "lucide-react";
 
-const COMPANY_URL = "https://kitchensolutions.cl";
+const COMPANY_URL = "https://kitchensolution.cl";
 const LOGO_URL = "/images/logo-kitchen-solution.png";
 const HABITISSIMO_URL = "/images/logo-habitissimo.png";
 const KITCHEN_CENTER_URL = "/images/logo-kitchen-center.png";
@@ -74,11 +74,11 @@ export default function SiteFooter() {
               </a>
     
               <a
-                href="mailto:ventas@kitchensolutions.cl"
+                href="mailto:ventas@kitchensolution.cl"
                 className="flex items-center gap-3 text-sm text-white/80 transition hover:text-white"
               >
                 <Mail className="h-5 w-5 shrink-0 text-[#c4a574]" />
-                ventas@kitchensolutions.cl
+                ventas@kitchensolution.cl
               </a>
            
             </div>

@@ -19,10 +19,10 @@ export default function Home() {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     name: "Kitchen Solutions",
-    image: "https://kitchensolutions.cl/og-image.svg",
-    url: "https://kitchensolutions.cl",
+    image: "https://kitchensolution.cl/og-image.svg",
+    url: "https://kitchensolution.cl",
     telephone: "+56 9 9538 2703",
-    email: "ventas@kitchensolutions.cl",
+    email: "ventas@kitchensolution.cl",
     address: {
       "@type": "PostalAddress",
       streetAddress: "Galería San Martín local C2, parcela 20",

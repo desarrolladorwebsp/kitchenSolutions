@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState, type FormEvent } from "react";
+import { useMemo, useState, type FormEvent } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -22,11 +22,7 @@ import {
   Sparkles,
   User,
 } from "lucide-react";
-import {
-  getAnswerLabel,
-  scoreLead,
-  type LeadFormData,
-} from "@/lib/leadScore";
+import type { LeadFormData } from "@/lib/leadScore";
 
 const TOTAL_STEPS = 4;
 const KITCHEN_IMAGE =
@@ -141,16 +137,10 @@ export default function KitchenLeadForm() {
   const [step, setStep] = useState(1);
   const [direction, setDirection] = useState(1);
   const [formData, setFormData] = useState<FormData>(INITIAL_DATA);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   const isSuccess = step > TOTAL_STEPS;
-
-  useEffect(() => {
-    if (!isSuccess) return;
-    const timer = window.setTimeout(() => {
-      document.getElementById("lead-interno")?.scrollIntoView({ behavior: "smooth" });
-    }, 350);
-    return () => window.clearTimeout(timer);
-  }, [isSuccess]);
 
   const canContinue = useMemo(() => {
     switch (step) {
@@ -182,11 +172,32 @@ export default function KitchenLeadForm() {
     setStep(nextStep);
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!canContinue || isSuccess) return;
+    if (!canContinue || isSuccess || isSubmitting) return;
     if (step === TOTAL_STEPS) {
-      goTo(5);
+      setIsSubmitting(true);
+      setSubmitError("");
+
+      try {
+        const response = await fetch("/api/leads", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        });
+
+        if (!response.ok) {
+          throw new Error("No fue posible enviar la solicitud");
+        }
+
+        goTo(5);
+      } catch {
+        setSubmitError(
+          "No pudimos enviar tu solicitud. Revisa tu conexión e inténtalo nuevamente.",
+        );
+      } finally {
+        setIsSubmitting(false);
+      }
       return;
     }
     goTo(step + 1);
@@ -305,7 +316,14 @@ export default function KitchenLeadForm() {
             )}
 
             {!isSuccess && (
-              <div className="flex items-center justify-between gap-3 pt-2">
+              <div>
+                {submitError && (
+                <p role="alert" className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">
+                  {submitError}
+                </p>
+                )}
+
+                <div className="flex items-center justify-between gap-3 pt-2">
                 <button
                   type="button"
                   onClick={() => goTo(step - 1)}
@@ -318,16 +336,17 @@ export default function KitchenLeadForm() {
 
                 <button
                   type="submit"
-                  disabled={!canContinue}
+                  disabled={!canContinue || isSubmitting}
                   className="inline-flex items-center gap-2 rounded-full bg-[#65a30d] px-6 py-2.5 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(101,163,13,0.32)] transition-all duration-200 hover:scale-[1.03] hover:bg-[#4d7c0f] active:scale-[0.98] disabled:pointer-events-none disabled:opacity-40"
                 >
-                  {step === TOTAL_STEPS ? "Enviar" : "Continuar"}
+                  {isSubmitting ? "Enviando..." : step === TOTAL_STEPS ? "Enviar" : "Continuar"}
                   {step === TOTAL_STEPS ? (
                     <Send className="h-4 w-4" />
                   ) : (
                     <ArrowRight className="h-4 w-4" />
                   )}
                 </button>
+                </div>
               </div>
             )}
           </div>
@@ -335,13 +354,6 @@ export default function KitchenLeadForm() {
       </div>
     </section>
 
-    {isSuccess && (
-      <section id="lead-interno" className="bg-[#121212] px-4 py-16 sm:px-6">
-        <div className="mx-auto max-w-3xl">
-          <InternalLeadPreview formData={formData} />
-        </div>
-      </section>
-    )}
     </>
   );
 }
@@ -497,12 +509,6 @@ function StepQualification({
   );
 }
 
-const TIER_DOT = {
-  hot: "bg-[#2f7a3a]",
-  warm: "bg-[#e2b336]",
-  cold: "bg-[#c23b3b]",
-} as const;
-
 function StepSuccess() {
   return (
     <div className="flex flex-col items-center py-8 text-center sm:py-12">
@@ -526,101 +532,16 @@ function StepSuccess() {
       <p className="mt-3 max-w-md text-sm leading-relaxed text-neutral-600 sm:text-base">
         Uno de nuestros diseñadores expertos en cocinas te contactará por WhatsApp muy pronto para revisar los detalles de tu proyecto.
       </p>
-    </div>
-  );
-}
-
-function InternalLeadPreview({ formData }: { formData: FormData }) {
-  const score = scoreLead(formData);
-
-  return (
-    <div className="rounded-3xl border border-white/10 bg-[#fcfaf7] p-6 sm:p-8">
-      <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#968a64]">
-        Vista interna · modo prueba
-      </p>
-      <p className="mt-1 text-sm text-neutral-500">
-        Esto es lo que llegaría a nuestro correo. El cliente no ve esta sección.
-      </p>
-
-      <div className="mt-5 flex items-start gap-3 rounded-xl border border-[#ece8df] bg-white px-4 py-4">
-        <span
-          className={`mt-1 h-3.5 w-3.5 shrink-0 rounded-full ${TIER_DOT[score.tier]}`}
-          aria-hidden
-        />
-        <div>
-          <p className="text-base font-semibold text-[#121212]">
-            {score.tierLabel} · {score.total}/{score.max} pts
-          </p>
-          <p className="mt-0.5 text-sm text-neutral-600">{score.action}</p>
-        </div>
-      </div>
-
-      <div className="mt-6 space-y-2">
-        <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500">
-          Ponderación
-        </p>
-        {score.breakdown.map((item) => (
-          <div
-            key={item.label}
-            className="flex items-start justify-between gap-4 border-b border-[#ece8df] py-3 last:border-b-0"
-          >
-            <div>
-              <p className="text-sm font-medium text-[#121212]">{item.label}</p>
-              <p className="text-xs text-neutral-500">{item.answer}</p>
-            </div>
-            <p className="shrink-0 text-sm font-semibold text-[#6b705c]">
-              +{item.points}/{item.max}
-            </p>
-          </div>
-        ))}
-      </div>
-
-      <div className="mt-6 space-y-2 rounded-2xl bg-[#121212] px-5 py-5 text-sm text-[#fcfaf7]">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#c4b896]">
-          Correo interno
-        </p>
-        <p>
-          <span className="text-[#c4b896]">Asunto:</span> [{score.tierLabel}] Nuevo lead —{" "}
-          {formData.fullName}
-        </p>
-        <p>
-          <span className="text-[#c4b896]">Nombre:</span> {formData.fullName}
-        </p>
-        <p>
-          <span className="text-[#c4b896]">Email:</span> {formData.email}
-        </p>
-        <p>
-          <span className="text-[#c4b896]">WhatsApp:</span> {formData.whatsapp}
-        </p>
-        <p>
-          <span className="text-[#c4b896]">Consentimiento de datos:</span>{" "}
-          {formData.dataConsent ? "Autorizado (Ley 19.628 / 21.719)" : "No autorizado"}
-        </p>
-        <p>
-          <span className="text-[#c4b896]">Etapa:</span>{" "}
-          {getAnswerLabel("projectStage", formData.projectStage)}
-        </p>
-        <p>
-          <span className="text-[#c4b896]">Tipo de cocina:</span>{" "}
-          {getAnswerLabel("kitchenSize", formData.kitchenSize)}
-        </p>
-        <p>
-          <span className="text-[#c4b896]">Propiedad:</span>{" "}
-          {getAnswerLabel("ownsProperty", formData.ownsProperty)}
-        </p>
-        <p>
-          <span className="text-[#c4b896]">Presupuesto:</span>{" "}
-          {getAnswerLabel("budget", formData.budget)}
-        </p>
-        <p>
-          <span className="text-[#c4b896]">Inicio:</span>{" "}
-          {getAnswerLabel("timeline", formData.timeline)}
-        </p>
-        <p>
-          <span className="text-[#c4b896]">Calidad:</span>{" "}
-          {getAnswerLabel("quality", formData.quality)}
-        </p>
-      </div>
+      <a
+        href="https://wa.me/56995382703"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-7 inline-flex items-center gap-2 rounded-full bg-[#65a30d] px-5 py-3 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(101,163,13,0.32)] transition-all duration-200 hover:scale-[1.02] hover:bg-[#4d7c0f] active:scale-[0.98]"
+      >
+        <MessageCircle className="h-4 w-4" />
+        También puedes escribirnos por WhatsApp
+        <ArrowRight className="h-4 w-4" />
+      </a>
     </div>
   );
 }

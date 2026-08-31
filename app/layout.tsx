@@ -18,7 +18,7 @@ const playfair = Playfair_Display({
   subsets: ["latin"],
 });
 
-const siteUrl = "https://kitchensolutions.cl";
+const siteUrl = "https://kitchensolution.cl";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

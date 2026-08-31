@@ -16,6 +16,10 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Correos del formulario
+
+El formulario envía un correo al cliente y otro a `contacto@kitchensolution.cl` mediante Resend. Copia `.env.example` como `.env.local` y completa `RESEND_API_KEY` con una API key de Resend y `LEADS_FROM_EMAIL` con un remitente cuyo dominio esté verificado en Resend. `NEXT_PUBLIC_SITE_URL` debe apuntar al dominio público para que el logo se cargue correctamente en los correos.
+
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.

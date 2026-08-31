@@ -46,7 +46,7 @@ const LABELS: Record<string, Record<string, string>> = {
     no: "No / es de un tercero",
   },
   budget: {
-    "2-5": "Entre $2.000.000 y $5.000.000",
+    "2-5": "Entre $2.500.000 y $5.000.000",
     "5-8": "Entre $5.000.000 y $8.000.000",
     "8-12": "Entre $8.000.000 y $12.000.000",
     "12+": "Más de $12.000.000",
@@ -116,15 +116,15 @@ export function scoreLead(data: LeadFormData): LeadScore {
 
   const tierMeta = {
     hot: {
-      tierLabel: "Cliente caliente",
+      tierLabel: "Cliente verde",
       action: "Priorizar: agendar visita o videollamada ahora.",
     },
     warm: {
-      tierLabel: "Cliente tibio",
+      tierLabel: "Cliente amarillo",
       action: "Enviar información adicional y seguimiento comercial.",
     },
     cold: {
-      tierLabel: "Cliente frío",
+      tierLabel: "Cliente rojo",
       action: "No agendar aún. Dejar en campaña de nutrición.",
     },
   }[tier];
