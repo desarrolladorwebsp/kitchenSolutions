@@ -6,6 +6,7 @@ const LOGO_URL = "/images/logo-kitchen-solution.png";
 const HABITISSIMO_URL = "/images/logo-habitissimo.png";
 const KITCHEN_CENTER_URL = "/images/logo-kitchen-center.png";
 const MERCADO_PAGO_URL = "/images/logo-mercado-pago.png";
+const CONTACTNUMBER = "+56 9 9538 2703";
 
 export default function SiteFooter() {
   return (
@@ -63,22 +64,22 @@ export default function SiteFooter() {
             </p>
             <div className="mt-6 space-y-5">
               <a
-                href="tel:+56995382703"
+                href={`tel:${CONTACTNUMBER}`}
                 className="flex items-start gap-3 text-white/80 transition hover:text-white"
               >
                 <Phone className="mt-0.5 h-5 w-5 shrink-0 text-[#c4a574]" />
                 <span>
                   <span className="block text-sm text-white/55">Ventas</span>
-                  <span className="mt-1 block font-medium">+56 9 ---- ----</span>
+                  <span className="mt-1 block font-medium">{CONTACTNUMBER}</span>
                 </span>
               </a>
     
               <a
-                href="mailto:ventas@kitchensolution.cl"
+                href="mailto:contacto@kitchensolution.cl"
                 className="flex items-center gap-3 text-sm text-white/80 transition hover:text-white"
               >
                 <Mail className="h-5 w-5 shrink-0 text-[#c4a574]" />
-                ventas@kitchensolution.cl
+                contacto@kitchensolution.cl
               </a>
            
             </div>

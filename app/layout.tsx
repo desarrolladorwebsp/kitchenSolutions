@@ -70,7 +70,7 @@ export const metadata: Metadata = {
       "Encuentra cocinas premium, diseño 3D, mobiliario a medida y asesoría personalizada para transformar tu hogar.",
     images: [
       {
-        url: "/og-image.svg",
+        url: "/images/og_grahp.jpg",
         width: 1200,
         height: 630,
         alt: "Kitchen Solutions - Cocinas Premium",
@@ -82,13 +82,17 @@ export const metadata: Metadata = {
     title: "Kitchen Solutions | Cocinas Premium en Chile",
     description:
       "Diseño, fabricación e instalación de cocinas premium a medida en Chile.",
-    images: ["/og-image.svg"],
+    images: ["/images/og_grahp.jpg"],
   },
   icons: {
-    icon: "/icon.svg",
-    shortcut: "/icon.svg",
-    apple: "/icon.svg",
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
   },
+  manifest: "/manifest.webmanifest",
 };
 
 export const viewport: Viewport = {

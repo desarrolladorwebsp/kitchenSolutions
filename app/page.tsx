@@ -19,7 +19,7 @@ export default function Home() {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     name: "Kitchen Solutions",
-    image: "https://kitchensolution.cl/og-image.svg",
+    image: "https://kitchensolution.cl/images/og_grahp.jpg",
     url: "https://kitchensolution.cl",
     telephone: "+56 9 9538 2703",
     email: "ventas@kitchensolution.cl",
