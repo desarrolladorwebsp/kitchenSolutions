@@ -64,10 +64,16 @@ const TIER_COLORS: Record<LeadScore["tier"], string> = {
   cold: "#dc2626",
 };
 
+const TIER_ICONS: Record<LeadScore["tier"], string> = {
+  hot: "\u{1F7E2}",
+  warm: "\u{1F7E1}",
+  cold: "\u{1F534}",
+};
+
 function businessEmail(data: LeadFormData, siteUrl: string) {
   const score = scoreLead(data);
   const tierColor = TIER_COLORS[score.tier];
-  return emailLayout(`<p style="margin:0;color:#968a64;font-size:11px;font-weight:bold;letter-spacing:2px;text-transform:uppercase">Nuevo contacto web</p><h1 style="margin:16px 0 8px;font-family:Georgia,serif;font-size:30px;font-weight:500">${escapeHtml(data.fullName)}</h1><p style="margin:0 0 24px;color:#5f5b54;font-size:15px"><span style="display:inline-block;width:10px;height:10px;border-radius:999px;background:${tierColor};margin-right:6px"></span><strong style="color:${tierColor}">${score.tierLabel}</strong> · ${score.total}/${score.max} puntos</p><table role="presentation" style="width:100%;border-collapse:collapse">${answerRows(data)}</table><div style="margin-top:26px"><a href="mailto:${escapeHtml(data.email)}" style="display:inline-block;background:#65a30d;color:#fff;text-decoration:none;padding:12px 17px;border-radius:999px;font-size:13px;font-weight:bold">Responder por correo</a>&nbsp; <a href="${WHATSAPP_URL}" style="display:inline-block;background:#6b705c;color:#fff;text-decoration:none;padding:12px 17px;border-radius:999px;font-size:13px;font-weight:bold">Abrir WhatsApp</a></div>`, siteUrl);
+  return emailLayout(`<p style="margin:0;color:#968a64;font-size:11px;font-weight:bold;letter-spacing:2px;text-transform:uppercase">Nuevo contacto web</p><h1 style="margin:16px 0 8px;font-family:Georgia,serif;font-size:30px;font-weight:500">${escapeHtml(data.fullName)}</h1><p style="margin:0 0 24px;color:#5f5b54;font-size:15px"><span style="display:inline-block;width:12px;height:12px;border-radius:999px;background:${tierColor};margin-right:8px;vertical-align:middle"></span>${score.total}/${score.max} puntos</p><table role="presentation" style="width:100%;border-collapse:collapse">${answerRows(data)}</table><div style="margin-top:26px"><a href="mailto:${escapeHtml(data.email)}" style="display:inline-block;background:#65a30d;color:#fff;text-decoration:none;padding:12px 17px;border-radius:999px;font-size:13px;font-weight:bold">Responder por correo</a>&nbsp; <a href="${WHATSAPP_URL}" style="display:inline-block;background:#6b705c;color:#fff;text-decoration:none;padding:12px 17px;border-radius:999px;font-size:13px;font-weight:bold">Abrir WhatsApp</a></div>`, siteUrl);
 }
 
 export async function POST(request: Request) {
@@ -96,7 +102,7 @@ export async function POST(request: Request) {
     method: "POST",
     headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
     body: JSON.stringify([
-      { from, to: [BUSINESS_EMAIL], reply_to: lead.email, subject: `[${score.tierLabel}] Nuevo lead - ${lead.fullName}`, html: businessEmail(lead, siteUrl) },
+      { from, to: [BUSINESS_EMAIL], reply_to: lead.email, subject: `${TIER_ICONS[score.tier]} Nuevo lead - ${lead.fullName}`, html: businessEmail(lead, siteUrl) },
       { from, to: [lead.email], subject: "Recibimos tu solicitud | Kitchen Solutions", html: customerEmail(lead, siteUrl) },
     ]),
   });
