@@ -162,8 +162,8 @@ export default function SiteFooter() {
                 alt="SmartPro"
                 width={104}
                 height={36}
-                sizes="104px"
-                className="h-8 w-auto object-contain bg-white rounded-sm p-0.5 px-2"
+                sizes="140px"
+                className="h-12 w-auto object-containß rounded-sm p-0.5 px-2"
               />
             </a>
           </div>
