@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Kitchen Solutions - cocinas premium">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#1a1a1a"/>
+      <stop offset="100%" stop-color="#2d3127"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#d9c59c"/>
+      <stop offset="100%" stop-color="#9b8a62"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1200" height="630" fill="rgba(255,255,255,0.04)"/>
+  <rect x="65" y="65" width="1070" height="500" rx="26" fill="rgba(255,255,255,0.04)" stroke="rgba(217,197,156,0.35)"/>
+  <circle cx="178" cy="165" r="54" fill="url(#gold)" opacity="0.9"/>
+  <path d="M148 165h60v12h-60zm-9 20h78v18h-78zm14 20h50v14h-50z" fill="#161616"/>
+  <text x="130" y="290" fill="#f5f1ea" font-family="Arial, sans-serif" font-size="44" font-weight="700" letter-spacing="6">KITCHEN SOLUTIONS</text>
+  <text x="130" y="366" fill="#d9c59c" font-family="Georgia, serif" font-size="76" font-weight="700">Cocinas premium</text>
+  <text x="130" y="428" fill="#f5f1ea" font-family="Arial, sans-serif" font-size="31">Diseño 3D · Fabricación propia · Instalación a medida</text>
+  <text x="130" y="488" fill="#d9c59c" font-family="Arial, sans-serif" font-size="28" letter-spacing="2">CHILE</text>
+  <rect x="820" y="145" width="250" height="250" rx="22" fill="#141414" stroke="rgba(217,197,156,0.5)"/>
+  <path d="M855 290h180v26H855zm-26-110h232v28H829zm34 56h164v20H863zm-58 82h280v24H805z" fill="url(#gold)" opacity="0.95"/>
+</svg>
