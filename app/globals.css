@@ -26,36 +26,3 @@ body {
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
 
-@keyframes hero-slide-progress {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
-}
-
-.hero-slide-progress {
-  transform-origin: left center;
-  animation-name: hero-slide-progress;
-  animation-timing-function: linear;
-  animation-fill-mode: forwards;
-}
-
-.hero-carousel[data-paused="true"] .hero-slide-progress {
-  animation-play-state: paused;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-slide-progress {
-    animation: none;
-    transform: scaleX(1);
-  }
-}
-
-@media (prefers-reduced-transparency: reduce) {
-  .hero-carousel button {
-    backdrop-filter: none;
-    background: #121212;
-  }
-}

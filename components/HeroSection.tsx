@@ -1,24 +1,25 @@
 "use client";
 
-import Image from "next/image";
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   ArrowRight,
   Box,
+  Maximize,
+  Minimize,
+  Pause,
+  Play,
+  RotateCcw,
+  RotateCw,
   ShieldCheck,
   Sparkles,
   Star,
   Users,
+  Volume2,
+  VolumeX,
   Wand2,
   Zap,
 } from "lucide-react";
-
-import HeroCarousel from "@/components/HeroCarousel";
-
-const KITCHEN_BG =
-  "https://images.unsplash.com/photo-1556912173-46c336c7fd55?auto=format&fit=crop&w=1800&q=80";
-const FOLIAGE_BG =
-  "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1400&q=80";
 
 const FEATURES = [
   { icon: Box, label: "Renderizado 3D real" },
@@ -64,6 +65,194 @@ const fadeUp = {
   },
 };
 
+const SKIP_SECONDS = 10;
+
+function formatTime(seconds: number) {
+  if (!Number.isFinite(seconds) || seconds < 0) return "0:00";
+  const whole = Math.floor(seconds);
+  const minutes = Math.floor(whole / 60);
+  const rest = whole % 60;
+  return `${minutes}:${rest.toString().padStart(2, "0")}`;
+}
+
+function HeroVideo() {
+  const reduce = useReducedMotion();
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const frameRef = useRef<HTMLDivElement>(null);
+  const [playing, setPlaying] = useState(false);
+  const [muted, setMuted] = useState(true);
+  const [current, setCurrent] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [fullscreen, setFullscreen] = useState(false);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = true;
+
+    const sync = () => {
+      setCurrent(video.currentTime || 0);
+      if (Number.isFinite(video.duration)) setDuration(video.duration);
+      setPlaying(!video.paused);
+      setMuted(video.muted);
+    };
+
+    sync();
+    video.addEventListener("timeupdate", sync);
+    video.addEventListener("loadedmetadata", sync);
+    video.addEventListener("durationchange", sync);
+    video.addEventListener("play", sync);
+    video.addEventListener("pause", sync);
+
+    if (!reduce) {
+      video.play().catch(() => setPlaying(false));
+    }
+
+    return () => {
+      video.removeEventListener("timeupdate", sync);
+      video.removeEventListener("loadedmetadata", sync);
+      video.removeEventListener("durationchange", sync);
+      video.removeEventListener("play", sync);
+      video.removeEventListener("pause", sync);
+    };
+  }, [reduce]);
+
+  useEffect(() => {
+    const onChange = () => setFullscreen(document.fullscreenElement === frameRef.current);
+    document.addEventListener("fullscreenchange", onChange);
+    return () => document.removeEventListener("fullscreenchange", onChange);
+  }, []);
+
+  const togglePlay = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (video.paused) {
+      video.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
+      return;
+    }
+    video.pause();
+    setPlaying(false);
+  };
+
+  const toggleMute = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = !video.muted;
+    if (!video.muted && video.volume === 0) video.volume = 1;
+    setMuted(video.muted);
+  };
+
+  const skip = (delta: number) => {
+    const video = videoRef.current;
+    if (!video) return;
+    const next = Math.min(Math.max(video.currentTime + delta, 0), video.duration || 0);
+    video.currentTime = next;
+    setCurrent(next);
+  };
+
+  const seek = (value: number) => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.currentTime = value;
+    setCurrent(value);
+  };
+
+  const toggleFullscreen = () => {
+    const frame = frameRef.current;
+    if (!frame) return;
+    if (document.fullscreenElement === frame) {
+      document.exitFullscreen().catch(() => undefined);
+      return;
+    }
+    frame.requestFullscreen().catch(() => undefined);
+  };
+
+  return (
+    <div
+      ref={frameRef}
+      className="relative aspect-[9/16] w-full max-w-[320px] overflow-hidden rounded-2xl bg-[#1c1c1c] shadow-[0_40px_90px_rgba(0,0,0,0.55)] sm:max-w-[360px] lg:max-w-[400px]"
+    >
+      <video
+        ref={videoRef}
+        className="absolute inset-0 h-full w-full object-cover"
+        autoPlay={!reduce}
+        muted
+        loop
+        playsInline
+        preload="auto"
+        aria-label="Recorrido de una cocina diseñada y fabricada a medida"
+        onPlay={() => setPlaying(true)}
+        onPause={() => setPlaying(false)}
+        onTimeUpdate={(event) => setCurrent(event.currentTarget.currentTime)}
+        onLoadedMetadata={(event) => setDuration(event.currentTarget.duration)}
+        onVolumeChange={(event) => setMuted(event.currentTarget.muted)}
+        onClick={togglePlay}
+      >
+        <source src="/videos/hero-section.mp4" type="video/mp4" />
+      </video>
+
+      <div className="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-black/80 via-black/45 to-transparent px-3 pb-3 pt-10">
+        <input
+          type="range"
+          min={0}
+          max={duration || 0}
+          step={0.1}
+          value={Math.min(current, duration || 0)}
+          aria-label="Posición del video"
+          onChange={(event) => seek(Number(event.target.value))}
+          className="mb-2 h-1 w-full cursor-pointer appearance-none rounded-full bg-white/35 accent-white"
+        />
+        <div className="flex items-center gap-1.5 text-white">
+          <button
+            type="button"
+            onClick={togglePlay}
+            aria-label={playing ? "Pausar" : "Reproducir"}
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/15 transition-colors hover:bg-white/25"
+          >
+            {playing ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
+          </button>
+          <button
+            type="button"
+            onClick={() => skip(-SKIP_SECONDS)}
+            aria-label="Retroceder 10 segundos"
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/15 transition-colors hover:bg-white/25"
+          >
+            <RotateCcw className="h-4 w-4" />
+          </button>
+          <button
+            type="button"
+            onClick={() => skip(SKIP_SECONDS)}
+            aria-label="Adelantar 10 segundos"
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/15 transition-colors hover:bg-white/25"
+          >
+            <RotateCw className="h-4 w-4" />
+          </button>
+          <span className="min-w-0 flex-1 text-center text-[11px] tabular-nums text-white/90">
+            {formatTime(current)} / {formatTime(duration)}
+          </span>
+          <button
+            type="button"
+            onClick={toggleMute}
+            aria-label={muted ? "Activar sonido" : "Silenciar"}
+            aria-pressed={muted}
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/15 transition-colors hover:bg-white/25"
+          >
+            {muted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
+          </button>
+          <button
+            type="button"
+            onClick={toggleFullscreen}
+            aria-label={fullscreen ? "Salir de pantalla completa" : "Pantalla completa"}
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/15 transition-colors hover:bg-white/25"
+          >
+            {fullscreen ? <Minimize className="h-4 w-4" /> : <Maximize className="h-4 w-4" />}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function HeroSection() {
   const scrollToForm = () => {
     document.getElementById("formulario-proyecto")?.scrollIntoView({
@@ -74,48 +263,12 @@ export default function HeroSection() {
   return (
     <section className="bg-[#121212]">
       <div className="relative isolate flex min-h-[82vh] flex-col overflow-hidden md:min-h-screen">
-        <div className="pointer-events-none absolute inset-0 lg:hidden">
-          <Image
-            src={KITCHEN_BG}
-            alt=""
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-center"
-          />
-        </div>
-
-        <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[40%] lg:block">
-          <Image
-            src={KITCHEN_BG}
-            alt=""
-            fill
-            priority
-            sizes="40vw"
-            className="object-cover object-center"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#121212] via-[#121212]/45 to-black/10" />
-        </div>
-
-        <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-[28%] overflow-hidden lg:block">
-          <Image
-            src={FOLIAGE_BG}
-            alt=""
-            fill
-            sizes="28vw"
-            className="scale-125 object-cover object-left opacity-80 blur-[6px]"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-emerald-900/25 via-[#121212]/30 to-[#121212]" />
-        </div>
-
-        <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-[58%] bg-gradient-to-r from-[#121212]/25 via-[#121212]/10 to-transparent lg:block" />
-
         <div className="relative z-10 mx-auto grid w-full max-w-[1280px] flex-1 grid-cols-1 items-center gap-6 px-4 py-6 sm:px-8 sm:py-12 lg:grid-cols-12 lg:px-12 lg:gap-12 xl:gap-16">
         <motion.div
           variants={container}
           initial="hidden"
           animate="show"
-          className="-mx-4 -mt-6 max-w-none bg-black/85 px-4 pb-6 pt-6 sm:-mx-8 sm:-mt-12 sm:px-8 sm:pt-12 lg:mx-0 lg:my-0 lg:max-w-[560px] lg:bg-transparent lg:px-0 lg:py-0 lg:col-span-6"
+          className="max-w-none lg:col-span-6 lg:max-w-[560px]"
         >
           <motion.div
             variants={fadeUp}
@@ -172,9 +325,9 @@ export default function HeroSection() {
           initial={{ opacity: 0, x: 40 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
-          className="-mx-6 flex justify-center bg-black/50 px-6 py-8 sm:-mx-8 sm:px-8 lg:mx-0 lg:col-span-6 lg:justify-end lg:bg-transparent lg:p-0"
+          className="flex justify-center lg:col-span-6 lg:justify-end"
         >
-          <HeroCarousel />
+          <HeroVideo />
         </motion.div>
         </div>
 
